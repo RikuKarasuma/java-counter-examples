@@ -11,7 +11,7 @@ public final class D implements Point {
     private static final String POINT_NAME = "D";
 
     private static final Map<String, Distance> TRAVEL_COST_INDEX = new HashMap<>(Map.of(
-//        "B", new Journey(50, 1),
+        "B", new Journey(50, 1),
         "C", new Journey(50, 1),
         "A", new Journey(50, 1),
         "F", new Journey(25, 1)

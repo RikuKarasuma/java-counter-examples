@@ -5,6 +5,7 @@ import org.example.roadnetwork.model.*;
 import org.example.roadnetwork.util.DistanceCalcUtil;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -51,31 +52,16 @@ public class CounterExampleUtil {
      * Using the model within roadnetwork package, we demonstrate that sometimes the
      * straightest route isn't always the fastest.
      */
-    public static void travelToB() {
-        final List<Point> locations = Arrays.asList(
-            new A(),
-            new B(),
-            new C(),
-            new D(),
-            new E(),
-            new F(),
-            new H(),
-            new G()
-        );
+    public static float travelToB(final Point start,
+                                  final Point destination,
+                                  final List<Point> locations) {
 
-        final var starting_point = new A();
-        final var destination_point = new B();
+        final var potential_routes = Arrays.asList(DistanceCalcUtil.plotFastestRoutes(start, destination, locations));
+        final var route = potential_routes.stream()
+                .min( (x1, x2) -> Float.compare(x1.timeToGetThere(), x2.timeToGetThere()))
+                .orElseThrow(RuntimeException::new);
 
-
-//        DistanceCalcUtil.plotFastestRoutes("A", "B", locations)
-        final var routes = DistanceCalcUtil.plotFastestRoutes("A", "B", locations);
-
-
-        System.out.println("\nRoutes:");
-        for ( var route : routes)
-            System.out.println(route);
-
-
+        return route.timeToGetThere();
     }
 
 }

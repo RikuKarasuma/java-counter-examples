@@ -14,20 +14,9 @@ public class DistanceCalcUtil {
      * Randomly chooses points ahead until we reach destination, and we run out
      * of alternative starting points. Plots routes.
      */
-    public static PlottedRoute[] plotFastestRoutes(final String starting_point_name,
-                                                   final String destination_name,
+    public static PlottedRoute[] plotFastestRoutes(final Point starting_point,
+                                                   final Point destination,
                                                    final List<Point> points) {
-
-        final var starting_point = points.stream()
-                .filter(point -> point.getName().equals(starting_point_name))
-                .findAny()
-                .orElseThrow(RuntimeException::new);
-
-
-        final var destination_point = points.stream()
-                .filter(point -> point.getName().equals(destination_name))
-                .findAny()
-                .orElseThrow(RuntimeException::new);
 
         final var potentialRoutes = new ArrayList<PlottedRoute>();
 
@@ -35,10 +24,10 @@ public class DistanceCalcUtil {
 
         while (!starting_directions.isEmpty()) {
             final var route = new Route();
-            route.addRoute(starting_point, 0);
-            potentialRoutes.add(travelToDestination(starting_point, destination_point, points, route));
+            route.addRoute(starting_point, 0, 0);
+            potentialRoutes.add(travelToDestination(starting_point, destination, points, route));
 
-            final var innerRoutesTravelled = Arrays.stream(route.getPlottedRoute()).filter(point -> !point.getName().equals(starting_point_name)).findAny();
+            final var innerRoutesTravelled = Arrays.stream(route.getPlottedRoute()).filter(point -> !point.getName().equals(starting_point.getName())).findAny();
 
             starting_directions.remove(innerRoutesTravelled.get().getName());
         }
@@ -80,14 +69,15 @@ public class DistanceCalcUtil {
             // Remove our current point as we already travelled to it.
             points = points.stream().filter(point -> !point.getName().equals(next_point_found.getKey())).toList();
 
+            final var distance_info = next_point_found.getValue();
             // Add next destination to route.
-            route.addRoute(next_point_after, next_point_found.getValue().distanceToInMiles());
+            route.addRoute(next_point_after, distance_info.distanceToInMiles(), distance_info.timeCostPerMile());
 
             // Repeat process until we find location or run out of points.
             travelToDestination(next_point_after, destination, points, route);
         }
         else
-            route.addRoute(destination, next_point.distanceToInMiles());
+            route.addRoute(destination, next_point.distanceToInMiles(), next_point.timeCostPerMile());
 
         return route;
     }

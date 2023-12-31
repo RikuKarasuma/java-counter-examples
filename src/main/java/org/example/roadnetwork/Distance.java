@@ -8,10 +8,10 @@ public interface Distance {
     int distanceToInMiles();
 
     /**
-     * @return The time cost(in minutes) travelling to this place
+     * @return The mph time cost travelling to this place
      *         due to external factors.
      *         e.g traffic stops, car congestion, accidents etc.
      */
-    int timeCostPerMile();
+    float timeCostPerMile();
 
 }
