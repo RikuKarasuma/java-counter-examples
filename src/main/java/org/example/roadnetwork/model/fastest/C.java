@@ -1,7 +1,8 @@
-package org.example.roadnetwork.model;
+package org.example.roadnetwork.model.fastest;
 
 import org.example.roadnetwork.Distance;
 import org.example.roadnetwork.Point;
+import org.example.roadnetwork.model.Journey;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,20 +1,20 @@
-package org.example.roadnetwork.model;
+package org.example.roadnetwork.model.turns;
 
 import org.example.roadnetwork.Distance;
 import org.example.roadnetwork.Point;
+import org.example.roadnetwork.model.Journey;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public final class D implements Point {
+public final class BTurns implements Point {
 
-    private static final String POINT_NAME = "D";
+    private static final String POINT_NAME = "B";
 
     private static final Map<String, Distance> TRAVEL_COST_INDEX = new HashMap<>(Map.of(
-        "B", new Journey(50, 1),
-        "C", new Journey(50, 1),
-        "A", new Journey(50, 1),
-        "F", new Journey(25, 1)
+        "A", new Journey(75, 1),
+        "C", new Journey(30, 1),
+        "D", new Journey(30, 1)
     ));
 
     @Override

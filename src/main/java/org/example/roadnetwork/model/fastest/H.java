@@ -1,17 +1,18 @@
-package org.example.roadnetwork.model;
+package org.example.roadnetwork.model.fastest;
 
 import org.example.roadnetwork.Distance;
 import org.example.roadnetwork.Point;
+import org.example.roadnetwork.model.Journey;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public final class G implements Point {
+public final class H implements Point {
 
-    private static final String POINT_NAME = "G";
+    private static final String POINT_NAME = "H";
 
     private static final Map<String, Distance> TRAVEL_COST_INDEX = new HashMap<>(Map.of(
-        "E", new Journey(25, 1),
+        "F", new Journey(25, 1),
         "B", new Journey(25, 1)
     ));
 
